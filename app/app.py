@@ -66,5 +66,5 @@ def get_weather_data(location, data):
     return weather_data
 
 if __name__ == '__main__':
-    project.run()
+    project.run(host='0.0.0.0', port=8080)
 
