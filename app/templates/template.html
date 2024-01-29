@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/x-icon">
+    <title>CapiWeather</title>
+    <style>
+        body, html {
+            text-align: center;
+            height: 100%;
+            margin: 0;
+        }
+        .bgimg {
+            background-image: url('{{ url_for("static", filename="pic.png") }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100%;
+        }
+        table {
+            margin: auto;
+            border-spacing: 0px;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bgimg">
+    {% if error_message %}
+    <h1>Try again!</h1>
+    {% endif %}
+    <h1>Weather Forecast for {{ weather_data.city }}, {{ weather_data.country }}</h1>
+
+    <div class="form-container">
+        <form method="POST">
+            <label for="location">Enter Location:</label>
+            <input type="text" id="location" name="location" value="{{ weather_data.city }}">
+            <input type="submit" value="Submit">
+            {% if error_message %}
+                <p>{{ error_message }}</p>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if weather_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th> </th>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                    <th>Night Temperature</th>
+                    <th>Night Humidity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for forecast in weather_data.forecast %}
+                <tr>
+                    <td>{{ forecast.day_name }}</td>
+                    <td>{{ forecast.date }}</td>
+                    <td><img src="{{ forecast.icon }}" alt="Weather Icon"/></td>
+                    <td>{{ forecast.day_avg_temp }}°C</td>
+                    <td>{{ forecast.day_avg_humidity }}%</td>
+                    <td>{{ forecast.night_avg_temp }}°C</td>
+                    <td>{{ forecast.night_avg_humidity }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
+
+
+

@@ -1,0 +1,9 @@
+/terraform/*
+!/terraform/instances.tf
+!/terraform/generate_inventory.sh
+/app.zip
+/README.md
+/ansible/*
+!/ansible/capiweather_playbook.yml
+!/ansible/ip_inventory.ini
+
